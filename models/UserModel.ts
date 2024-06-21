@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, models } from 'mongoose';
 import { UserSchema } from './types';
 
 const userSchema = new Schema<UserSchema>(
@@ -17,16 +17,14 @@ const userSchema = new Schema<UserSchema>(
       trim: true,
       required: true,
     },
-    cartId: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'Cart',
-      },
-    ],
+    cartId: {
+      type: Schema.Types.ObjectId,
+      ref: 'Cart',
+    },
   },
   { timestamps: true }
 );
 
-const User = model('product', userSchema);
+const User = models.User || model('User', userSchema);
 
 export default User;
